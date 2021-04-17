@@ -4,4 +4,5 @@
 3. 在 week1 分支上 commit 檔案： git commit -am 'finished'
 4. 把作業檔案 push 到課程系統： git push origin week1
 5. 到課程系統點 pull request, 寫檔案敘述後再點 create pull request 把 week1 分支併入 master
+6. 把 pr 連結複製到學習系統上繳交作業
 
