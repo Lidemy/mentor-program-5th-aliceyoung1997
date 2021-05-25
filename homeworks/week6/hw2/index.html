@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>活動報名表單</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css" />
+  <style>
+    body {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .container {
+      width: 645px;
+      margin: 120px auto;
+    }
+
+    .form {
+      padding-left: 39px;
+      background: white;
+      border-top: 8px solid #fad312;
+      box-shadow: 1.8px 2.4px 5px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      height: 32px;
+      font-size: 36px;
+      font-weight: bold;
+      color: #000000;
+      padding: 54px 0 35px 0px;
+      margin: 0;
+    }
+
+    .info div {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .info div+div {
+      padding: 11px 0 22px 0;
+    }
+
+    .notice {
+      color: #e74149;
+      font-size: 16px;
+      margin-bottom: 55px;
+    }
+
+    .question {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .question span {
+      color: red;
+    }
+
+    .ans {
+      margin-bottom: 49px;
+    }
+
+    .ans input {
+      font-size: 16px;
+      border: solid 1px #d0d0d0;
+      padding: 5px 0;
+    }
+
+    .choice {
+      font-size: 14px;
+      padding: 0px 0px 25px;
+    }
+
+    .choice div {
+      padding-bottom: 20px;
+    }
+
+    .other {
+      font-size: 20px;
+      padding-bottom: 24px;
+    }
+
+    .advice {
+      font-size: 14px;
+      padding-bottom: 24px;
+    }
+
+    .submit {
+      width: 92px;
+      height: 40px;
+      border-radius: 3px;
+      background: #fad312;
+      font-size: 15px;
+      border: none;
+      margin-bottom: 21px;
+    }
+
+
+    .reminder {
+      font-size: 14px;
+      padding-bottom: 35px;
+    }
+
+    .footer__bottom {
+      background: black;
+      color: white;
+      text-align: center;
+      font-size: 13px;
+      padding: 21px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        width: 100%;
+        margin: 0;
+      }
+
+      .form {
+        padding-left: 5%;
+      }
+
+      h1 {
+        padding: 10px 0px 35px 0px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="form">
+      <h1>新拖延運動報名表單</h1>
+      <div class="info">
+        <div>活動日期：2020/12/10 ~ 2020/12/11</div>
+        <div>活動地點：台北市大安區新生南路二段1號</div>
+      </div>
+      <div class="notice">*必填</div>
+      <div class="question">暱稱 <span>*</span></div>
+      <div class="ans"><input type="text" placeholder="您的回答" /></div>
+      <div class="question">電子郵件 <span>*</span></div>
+      <div class="ans"><input type="text" placeholder="您的電子郵件" /></div>
+      <div class="question">手機號碼 <span>*</span></div>
+      <div class="ans"><input type="text" placeholder="您的手機號碼" /></div>
+      <div class="question">報名類型 <span>*</span></div>
+      <div class="choice">
+        <div><input type="radio" name="category" id="躺在床上用想像力實作" /><label for="躺在床上用想像力實作">躺在床上用想像力實作</label></div>
+        <div><input type="radio" name="category" id=" 趴在地上滑手機找現成的" /><label for=" 趴在地上滑手機找現成的"> 趴在地上滑手機找現成的</label>
+        </div>
+      </div>
+      <div class="question">怎麼知道這個活動的？ <span>*</span></div>
+      <div class="ans"><input type="text" placeholder="您的回答" /></div>
+      <div class="other">其他</div>
+      <div class="advice">對活動的一些建議</div>
+      <div class="ans"><input type="text" placeholder="您的回答" /></div>
+      <input class="submit" type="submit" value="提交" />
+      <div class="reminder">請勿透過表單送出您的密碼。</div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer__bottom">
+      © 2020 © Copyright. All rights Reserved.
+    </div>
+  </footer>
+
+</body>
+
+</html>
