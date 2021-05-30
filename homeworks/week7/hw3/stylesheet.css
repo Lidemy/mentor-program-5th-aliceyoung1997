@@ -1,0 +1,110 @@
+body{
+  background: #eaeac1;
+}
+.wrapper{
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+h1{
+  text-align: center;
+  color: rgb(64, 87, 114);
+  font-size:48px;
+  margin-bottom: 20px;
+}
+
+.todo__input-area{
+    align-items: center;
+    display: flex;
+    position:relative;
+    padding: 10px 0;
+    border: solid 2px ;
+    border-color: #eaeac1;
+    border-bottom-color:rgb(3, 78, 3) ;
+  }
+
+.todo__input{
+  width: 600px;
+  font-size: 24px;
+  background:#eaeac1;
+  border-color: transparent;
+   padding: 10px;
+}
+
+.add{
+  width:40px;
+  height:40px;
+  border-radius: 10px;
+  border: 1px solid rgb(3, 78, 3);
+  background:#eaeac1 ;
+  margin:0 15px;
+  color:rgb(3, 78, 3);
+  font-weight: bold;
+  cursor: pointer;
+  position:absolute;
+  right:0;
+}
+
+.todo__list{
+  margin-left: 15px ;
+  padding-top: 10px;
+}
+
+.task{
+padding-right: 15px;
+ position: relative;
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ }
+
+label{
+  display: flex;
+  align-items: center;
+  height: 70px;
+}
+
+.ckbutton {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+p{
+  color: rgb(64, 87, 114);
+  font-size: 36px;
+  padding-left: 10px;
+}
+
+.delete{
+  border: none;
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  cursor:pointer;
+  outline: none;
+}
+
+.delete::before,
+.delete::after{
+  content: '';
+  background:#6c6c6c;
+  width:30px;
+  height: 2px;
+  position: absolute;
+}
+
+.delete::before{
+  transform: translate(-50%,-50%) rotate(-45deg);
+}
+.delete::after{
+  transform: translate(-50%,-50%) rotate(45deg);
+}
+
+input:checked + p{
+  text-decoration:line-through #a13232 2px;
+  color:rgb(143, 143, 143);
+}
+
+  
+
