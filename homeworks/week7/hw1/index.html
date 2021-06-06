@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset='UTF-8'>
+  <title>活動報名表單</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' href='https://necolas.github.io/normalize.css/8.0.1/normalize.css' />
+  <link rel='stylesheet' href='./stylesheet.css' />
+</head>
+
+<body>
+  <form>
+    <div class='container'>
+      <div class='form'>
+        <h1>新拖延運動報名表單</h1>
+        <div class='info'>
+          <div>活動日期：2020/12/10 ~ 2020/12/11</div>
+          <div>活動地點：台北市大安區新生南路二段1號</div>
+        </div>
+        <div class='notice'>*必填</div>
+        <div class='block'>
+          <div class='question'>暱稱 </div>
+          <div class='ans'><input class='name__input' type='text' placeholder='您的回答' /></div>
+          <div class='error' id='name__error'>請填寫暱稱</div>
+        </div>
+        <div class='block'>
+          <div class='question'>電子郵件 </div>
+          <div class='ans'><input class='email__input' type='email' placeholder='您的電子郵件' /></div>
+          <div class='error' id='email__error'>請填寫電子郵件</div>
+        </div>
+        <div class='block'>
+          <div class='question'>手機號碼 </div>
+          <div class='ans'><input class='phone__input' type='tel' placeholder='您的手機號碼' /></div>
+          <div class='error' id='phone__error'>請填寫手機號碼</div>
+        </div>
+        <div class='question'>報名類型 </div>
+        <div class='choice'>
+          <div><input type='radio' name='category' value='躺在床上用想像力實作' id='bed' /><label for='bed'>躺在床上用想像力實作</label>
+          </div>
+          <div><input type='radio' name='category' value='趴在地上滑手機找現成的' id='floor' /><label for='floor'>
+              趴在地上滑手機找現成的</label>
+            <div class='error' id='choice__error'>請勾選</div>
+          </div>
+        </div>
+        <div class='block'>
+          <div class='question'>怎麼知道這個活動的？ </div>
+          <div class='ans'><input class='know__info__input' type='text' placeholder='您的回答' /></div>
+          <div class='error' id='know__info__error'>請填寫此欄</div>
+        </div>
+        <div class='block'>
+          <div class='other'>其他</div>
+          <div class='advice'>對活動的一些建議</div>
+          <div class='ans'><input type='text' placeholder='您的回答' /></div>
+        </div>
+        <input class='submit' type='submit' value='提交' />
+        <div class='reminder'>請勿透過表單送出您的密碼。</div>
+      </div>
+    </div>
+  </form>
+  <footer>
+    <div class='footer__bottom'>
+      © 2020 © Copyright. All rights Reserved.
+    </div>
+    <script src='index.js'></script>
+  </footer>
+
+</body>
+
+</html>
