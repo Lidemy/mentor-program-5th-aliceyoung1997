@@ -63,7 +63,8 @@ flex-wrap: wrap;
 .game__streams{
   width: 300px;
   height: 260px;
-  padding: 10px;
+  margin: 10px;
+  background: #363636a8;
 }
 
 .game__streams__background{
