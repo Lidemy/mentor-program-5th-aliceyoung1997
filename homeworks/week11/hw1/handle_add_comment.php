@@ -14,7 +14,7 @@ $username = $_SESSION['username'];
 $user = getUserFromUsername($username);
 if ($user['role'] === 'blocked'){
   header("Location: index.php");
-  exit;
+  exit();
 }
 $content = $_POST['content'];
 $sql= "INSERT INTO alice_comments(username, content) values(?, ?)";
@@ -28,5 +28,6 @@ if(!$result){
 }
 
 header("Location: index.php");
+exit();
 ?>
 

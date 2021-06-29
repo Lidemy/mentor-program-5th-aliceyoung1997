@@ -18,6 +18,6 @@ if(!$result){
 }
 
 header("Location: admin.php");
-
+exit();
 
 ?>

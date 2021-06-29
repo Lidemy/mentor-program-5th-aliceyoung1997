@@ -15,7 +15,7 @@
   
   if ($role !=="admin"){
     header("Location: index.php");
-    exit;
+    exit();
   }
   $stmt = $conn->prepare(
   'SELECT id, role, nickname, username FROM alice_users ORDER BY id asc'

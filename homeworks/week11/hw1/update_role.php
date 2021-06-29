@@ -18,7 +18,7 @@ $id = $_GET['id'];
 $role = $_GET['role'];
 if ($admin !=="admin"){
   header("Location: admin.php");
-  exit;
+  exit();
 }
 
 $sql= "UPDATE alice_users SET role=? WHERE id=?";
@@ -33,5 +33,6 @@ if(!$result){
 }
 
 header("Location: admin.php");
+exit();
 ?>
 

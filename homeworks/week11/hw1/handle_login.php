@@ -36,8 +36,10 @@
     // 登入成功
     $_SESSION['username']= $username;
     header("Location: index.php");
+    exit();
   }else{
     header("Location: login.php?errCode=2");
+    exit();
   }
   
 ?>

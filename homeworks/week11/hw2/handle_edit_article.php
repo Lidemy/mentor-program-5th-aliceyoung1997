@@ -20,5 +20,5 @@ if(!$result){
   die($conn->error);
 }
  header('Location: admin.php');
-
+exit();
 ?>

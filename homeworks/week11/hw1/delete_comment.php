@@ -26,5 +26,6 @@ if(!$result){
 }
 
 header("Location: index.php");
+exit();
 ?>
 

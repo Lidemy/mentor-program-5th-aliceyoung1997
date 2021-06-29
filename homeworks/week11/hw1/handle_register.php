@@ -23,11 +23,13 @@ if(!$result){
   $code = $conn->errno;
   if ($code ===1062) {
     header('Location: register.php?errCode=2');
+    exit();
   }
   die($conn->error);
 }
 
 $_SESSION['username'] = $username;
 header("Location: index.php");
+exit();
 ?>
 
