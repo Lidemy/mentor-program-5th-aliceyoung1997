@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> WEEK 12 留言板</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    .container {
+      padding-top: 10px;
+    }
+
+    .card {
+      margin-top: 15px;
+    }
+
+    span {
+      color: grey;
+      margin-left: 10px;
+    }
+
+    .btn__read-more {
+      margin-top: 10px;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+  <script>
+    function escape(toOutput) {
+      return toOutput.replace(/\&/g, '&amp;')
+        .replace(/\</g, '&lt;')
+        .replace(/\>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/\'/g, '&#x27')
+        .replace(/\//g, '&#x2F');
+    }
+    function appendCommentToDOM(container, comment, isPrepend) {
+      const html = ` <div class="card">
+          <div class=" card-body">
+            <h5 class="card-title">${escape(comment.nickname)}
+              <span>${escape(comment.created_at)}</span>
+            </h5>
+            <p class="card-text">${escape(comment.content)}</p>
+          </div>
+        </div>`
+      if (isPrepend) {
+        container.prepend(html)
+      } else {
+        container.append(html)
+      }
+    }
+    function getComment(offset, size, counter) {
+      //控制一次拿五筆資料
+      const commentsDOM = $('.comments')
+      $.ajax({
+        url: "http://localhost/alice/week12/board/api_comments.php?site_key=alice",
+      }).done(function (data) {
+        if (!data.ok) {
+          alert(data.message)
+          return
+        }
+        let sum = data.discussions.length
+        const comments = data.discussions;
+        let dataLoad = counter * size
+
+        if (dataLoad < sum) {
+          $('.btn__read-more').removeClass('hide')
+        } else {
+          $('.btn__read-more').addClass('hide')
+        }
+        if (dataLoad - sum >= 0) {
+          dataLoad = sum
+        }
+
+        for (let i = offset; i < dataLoad; i++) {
+          appendCommentToDOM(commentsDOM, comments[i])
+        }
+      });
+    }
+    let size = 5
+    let offset = 0
+    let counter = 1
+    $(document).ready(() => {
+      //先顯示最新五筆留言
+      getComment(offset, size, counter)
+
+      $('.add-comment-form').submit(e => {
+        e.preventDefault();
+        const newComment = {
+          'site_key': 'alice',
+          'nickname': $('input[name=nickname]').val(),
+          'content': $('textarea[name=content]').val(),
+        }
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost/alice/week12/board/api_add_comments.php?site_key=alice',
+          data: newComment
+        }).done(function (data) {
+          if (!data.ok) {
+            alert(data.message)
+            return
+          }
+          $('input[name=nickname]').val('')
+          $('textarea[name=content]').val('')
+          //資料庫新增完留言後再去資料庫拿一次最新資料
+          $('.comments').empty()
+          getComment(0, size, counter)
+          // 由於getComment的參數會隨著瀏覽者按read more 載入留言而不同。
+          // 設定從 0 開始確保就算瀏覽者已經載入10則留言再新增留言也能從資料庫中抓到最新的 10 則
+
+        });
+
+      })
+      $('.btn__read-more').click(function () {
+        counter += 1
+        offset = (counter - 1) * size
+        //再拿五筆留言
+        getComment(offset, size, counter)
+      })
+    })
+
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <form class="add-comment-form">
+      <div class="mb-3">
+        <label for="form-nickname" class="form-label">Nickname</label>
+        <input name="nickname" type="text" class="form-control" id="form-nickname">
+      </div>
+      <div class="mb-3">
+        <label for="content-textarea" class="form-label">Comments</label>
+        <textarea name="content" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div class="comments">
+    </div>
+    <div class="read-more">
+      <button type="button" class="btn__read-more btn btn-primary hide">Read More</button>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>todo</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script>
+    let id = 1
+    function escape(unsafe) {
+      return unsafe.replace(/\&/g, '&amp;')
+        .replace(/\</g, '&lt;')
+        .replace(/\>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/\'/g, '&#x27')
+        .replace(/\//g, '&#x2F');
+    }
+    const searchParams = new URLSearchParams(window.location.search)
+    const todoId = searchParams.get('id')
+
+    if (todoId) {
+      $.getJSON('http://localhost/alice/week12/todo_list/api_get_todo.php?id=' + todoId, function (data) {
+        const todos = JSON.parse(data.data.todo)
+        restoreTodos(todos)
+      })
+    }
+    function restoreTodos(todos) {
+      if (todos.length === 0) return
+      // id = todos[todos.length - 1].id + 1
+      for (let i = 0; i < todos.length; i++) {
+        const todo = todos[i]
+        $('.task__list').append(`
+        <div class="form-check todo">
+          <input class="form-check-input" type="checkbox" value="" id="${todo.id}">
+          <p contenteditable="true" class="todo__content"> ${escape(todo.content)}</p>
+        <button type="button" class="btn btn-outline-secondary btn__delete">Delete</button>
+      </div>
+        `)
+        if (todo.done) {
+          $('#' + todo.id).prop('checked', true)
+        }
+      }
+    }
+
+    $(document).ready(function () {
+      $('.btn__add-task').click(function (e) {
+        if (!$('.todo__add-area').val()) {
+          return
+        }
+        const task = $('.todo__add-area').val()
+        $('.todo__add-area').val('')
+        $('.task__list').append(`
+        <div class="form-check todo">
+          <input class="form-check-input" type="checkbox" value="" id="${id}">
+          <p contenteditable="true" class="todo__content"> ${escape(task)}</p>
+        <button type="button" class="btn btn-outline-secondary btn__delete">Delete</button>
+      </div>
+        `)
+        id += 1
+      })
+      $('.task__list').on('click', '.btn__delete', function (e) {
+        $(e.target).parent().remove()
+      })
+      $('.btn__clear-all').click(function () {
+        $('.task__list').empty();
+      })
+      $('.btn__view-all').click(function () {
+        $('.form-check').removeClass('hide')
+      })
+      $('.btn__view-active').click(function () {
+        $('input:checked').parent().addClass('hide')
+        $('input:not(:checked)').parent().removeClass('hide')
+      })
+      $('.btn__view-completed').click(function () {
+        $('input:checked').parent().removeClass('hide')
+        $('input:not(:checked)').parent().addClass('hide')
+        $('.container').removeClass('hide')
+      })
+      $('.btn__save').click(function () {
+        let todos = []
+        $('.todo').each((i, element) => {
+          const input = $(element).find('.form-check-input')
+          const content = $(element).find('.todo__content')
+          todos.push({
+            id: input.attr('id'),
+            done: input.is(':checked'),
+            content: content.text()
+          })
+        })
+        const data = JSON.stringify(todos)
+        console.log(data)
+        $.ajax({
+          type: 'POST',
+          url: 'http://localhost/alice/week12/todo_list/api_add_todo.php',
+          data: {
+            todo: data
+          },
+          success: function (res) {
+            const resId = res.id
+            window.location = 'index.html?id=' + resId
+
+          },
+          error: function () {
+            alert('error')
+          }
+        })
+
+      })
+
+    })
+  </script>
+
+  <style>
+    .task__add {
+      margin: 20px 0;
+    }
+
+    .todo__add-area {
+      font-size: 20px;
+      margin-right: 5px;
+    }
+
+    .form-check {
+      font-size: 18px;
+      margin: 15px 10px;
+      display: flex;
+      align-items: start;
+    }
+
+    label {
+      flex: 1;
+    }
+
+    .form-check-input {
+      min-width: 16px;
+    }
+
+    p {
+      flex: 1;
+      margin-bottom: 0;
+      margin-left: 10px;
+      padding: 0 5px;
+      max-width: 1000px;
+      word-break: break-all;
+    }
+
+    .btn+.btn {
+      margin-left: 5px;
+    }
+
+    input:checked+p {
+      text-decoration: line-through #a13232 2px;
+      color: rgb(143, 143, 143);
+    }
+
+    .hide {
+      display: none;
+    }
+
+    .btn__sort {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="d-flex justify-content-center mt-5">
+      <h1>Todo List</h1>
+    </div>
+    <div class="task__add d-flex justify-content-between align-items-center">
+      <input type="text" class="form-control todo__add-area" placeholder="tasks">
+      <button type="button" class="btn btn-success btn__add-task">ADD</button>
+    </div>
+    <div class="task__list">
+    </div>
+    <div class="btn__sort">
+      <button type="button" class="btn btn-outline-secondary btn__view-all">All</button>
+      <button type="button" class="btn btn-outline-secondary btn__view-active">Active</button>
+      <button type="button" class="btn btn-outline-secondary btn__view-completed">Completed</button>
+      <button type="button" class="btn btn-outline-secondary btn__clear-all">Clear all</button>
+      <button type="button" class="btn btn-outline-secondary btn__save">Save</button>
+    </div>
+  </div>
+</body>
+
+</html>
