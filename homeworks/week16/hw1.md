@@ -36,8 +36,8 @@ Event Loop：持續看 call stack 是否空下來，若是空了，就把 task q
 5. 把 `setTimeout(() => {console.log(4)}, 0)` 堆入 call stack。呼叫 setTimeout 這個 Web API，請瀏覽器設定倒數計時 0 毫秒 ，`setTimeout()`從 call stack 跳出。經過設定的 0 秒，`() =>{console.log(4)}` 進入 task queque 等待進入 call stack 被執行。
 6. 把 `console.log(5)` 堆入 call stack，執行後輸出 `5` 然後從 call stack 跳出。
 7. 整段程式馬執行結束，main() 從 call stack 跳出。
-8. Eventloop 看到 call stack 空了，把 `console.log(2)` 堆入 call stack，執行後輸出 `2` 然後從 call stack 跳出。 
-9. Eventloop 看到 call stack 空了，把 `console.log(4)` 堆入 call stack，執行後輸出 `4` 然後從 call stack 跳出。
+8. Eventloop 看到 call stack 空了，把 `() =>{console.log(2)}` 堆入 call stack，執行後輸出 `2` 然後從 call stack 跳出。 
+9. Eventloop 看到 call stack 空了，把 `() =>{console.log(4)}` 堆入 call stack，執行後輸出 `4` 然後從 call stack 跳出。
 
 
 參考
